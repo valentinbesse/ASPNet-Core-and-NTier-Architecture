@@ -1,5 +1,5 @@
-using AbbyWeb.Data;
-using AbbyWeb.Model;
+using Abby.DataAccess.Data;
+using Abby.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -36,10 +36,11 @@ namespace AbbyWeb.Pages.Categories
             {
                 _db.Category.Update(Category);
                 await _db.SaveChangesAsync();
+                TempData["success"] = "Category edited successfully";
                 return RedirectToPage("Index");
 
             }
-
+            TempData["error"] = "Category edition failed";
             return Page();
         }
     }

@@ -1,5 +1,5 @@
-using AbbyWeb.Data;
-using AbbyWeb.Model;
+using Abby.DataAccess.Data;
+using Abby.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -33,8 +33,10 @@ namespace AbbyWeb.Pages.Categories
                 {
                     _db.Category.Remove(categoryFromDb);
                     await _db.SaveChangesAsync();
-                    return RedirectToPage("Index");
+                TempData["success"] = "Category deleted successfully";
+                return RedirectToPage("Index");
                 }
+            TempData["error"] = "Category deletion failed";
             return Page();
         }
     }
