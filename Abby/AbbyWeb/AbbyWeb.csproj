@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Abby.Utility\Abby.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Customer\" />
+  </ItemGroup>
+
 </Project>
