@@ -89,13 +89,17 @@ namespace AbbyWeb.Pages.Admin.MenuItems
                 //create
                 string fileName_new = Guid.NewGuid().ToString();
                 var uploads = Path.Combine(webRootPath, imagePath);
-                var extension = Path.GetExtension(files[0].FileName);
 
-                using (var fileStream = new FileStream(Path.Combine(uploads, fileName_new + extension), FileMode.Create))
+                if (files.Count > 0)
                 {
-                    files[0].CopyTo(fileStream);
+                    var extension = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStream = new FileStream(Path.Combine(uploads, fileName_new + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+                    MenuItem.Image = String.Concat("\\", imagePath, "\\", fileName_new + extension);
                 }
-                MenuItem.Image = String.Concat("\\",imagePath, "\\", fileName_new + extension);
                 _unitOfWork.MenuItem.Add(MenuItem);
                 _unitOfWork.Save();
 

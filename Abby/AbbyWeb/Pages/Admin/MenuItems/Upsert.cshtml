@@ -51,11 +51,20 @@
             <div class="col-3">
                 @if (Model.MenuItem.Id != 0)
                 {
-                    <img src="@Model.MenuItem.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9"/>
+                    <img src="@Model.MenuItem.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
                 }
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px;">@(Model.MenuItem.Id != 0 ? "Update" : "Create")</button>
+        @if (Model.MenuItem.Id != 0)
+        {
+            <button type="submit" class="btn btn-primary" style="width:150px;">Update</button>
+
+        }
+        else
+        {
+            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px;">Create</button>
+
+        }
         <a asp-page="Index" class="btn btn-secondary" style="width:150px;">Back to List</a>
     </div>
 </form>
@@ -70,6 +79,20 @@
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
         });
+
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload an Image!',
+                });
+                return false;
+            }
+            return true;
+        }
+
+
     </script>
     @{
     <partial name="_ValidationScriptsPartial" />
