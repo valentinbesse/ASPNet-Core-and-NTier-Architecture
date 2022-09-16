@@ -364,6 +364,3 @@ FodyWeavers.xsd
 
 # Ressource files and folder
 Ressources/
-
-# Images used by MenuItem
-Abby/AbbyWeb/wwwroot/img/menuItems/*.*

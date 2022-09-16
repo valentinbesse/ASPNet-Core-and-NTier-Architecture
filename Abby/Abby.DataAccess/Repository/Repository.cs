@@ -15,6 +15,9 @@ namespace Abby.DataAccess.Repository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
+            // If you do not use Repository pattern but only ApplicationDbContext : do this instead of Split (see below)
+            //FoodType, Category
+            //_db.MenuItem.Include(u => u.FoodType).Include(u => u.Category);
             this.dbSet = db.Set<T>();
         }
 
@@ -23,9 +26,18 @@ namespace Abby.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if (includeProperties != null)
+            {
+                foreach(var includeProperty in includeProperties.Split(
+                    new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
                 return query.ToList();
         }
 
